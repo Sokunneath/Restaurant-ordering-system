@@ -2,12 +2,12 @@ import java.security.Timestamp;
 import java.util.List;
 
 public class Receipt {
-    private int receiptID;
-    private int orderID;
-    private int tableNumber;
-    private List<Order> items;
-    private double totalPrice;
-    private Timestamp dateTime;
+    public int receiptID;
+    public int orderID;
+    public int tableNumber;
+    public List<Order> items;
+    public double totalPrice;
+    public Timestamp dateTime;
 
     public Receipt(int receiptID, Order order) {
         this.receiptID = receiptID;
