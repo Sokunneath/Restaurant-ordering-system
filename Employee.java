@@ -1,22 +1,24 @@
 import java.sql.Date;
+import java.util.LinkedList;
 
 public class Employee {
-    String name;
-    int idNumber;
-    String role; //Cashier, manager
-    double salary;
-    String phoneNumber;
-    String shift;
-    String email;
-    String password; //morning, afternoon, night
-    
+    public String name;
+    public int idNumber;
+    public String role; //Cashier, manager
+    private String phoneNumber;
+    public String shift;
+    private String email;
+    private String password; //morning, afternoon, night
+
+
+    private static LinkedList<Employee> staffList = new LinkedList<Employee>();
+
     //Constructor to add staff
-    public Employee(String name, int idNumber, String role, double salary,
+    public Employee(String name, int idNumber, String role,
                     String phoneNumber, String shift, String email, String password) {
                 this.name = name;
                 this.idNumber = idNumber;
                 this.role = role;
-                this.salary = salary;
                 this.phoneNumber = phoneNumber;
                 this.shift = shift;
                 this.email = email;
@@ -33,4 +35,9 @@ public class Employee {
     {
         System.out.println("Add item to menu here: ");
     }
+
+    public static LinkedList<Employee> getStaffList() {
+        return staffList;
+    }
+    
 }

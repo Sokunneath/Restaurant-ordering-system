@@ -1,15 +1,15 @@
 public class Menu {
 
-    String category;
-    String status;
-    String name;
-    char size;
-    String description;
-    double price;
+    private String category;
+    private String status;
+    private String name;
+    private char size;
+    private String description;
+    private double price;
 
 // Constructor to ADD stuff to menu
 public Menu(String category, String name, double price, char size) {
-    this.category = category,
+    this.category = category;
     this.name = name;
     this.price = price;
     this.size = size;
