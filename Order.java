@@ -1,20 +1,19 @@
 import java.security.Timestamp;
-import java.util.List;
 
 public class Order {
-    private int orderID;
+    public int orderID;
     private int tableNumber;
-    private List<Order> items;
+    private int foodID;
     private int[] quantity;
     private String status;
     private Timestamp orderTime;
-    int[] subtotalprice;
-    double totalPrice;
+    private int[] subtotalprice;
+    private double totalPrice;
     public Order(int orderID, int tableNumber, int foodID, int[] quantity, String status, 
                  Timestamp orderTime, int[] subtotalprice, int[] totalprice){
         this.orderID = orderID;
         this.tableNumber = tableNumber;
-        this.items = items;
+        this.foodID = foodID;
         this.quantity = quantity;
         this.status = status;
         this.orderTime = orderTime;
