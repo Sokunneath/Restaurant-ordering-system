@@ -1,43 +1,67 @@
-import java.sql.Date;
-import java.util.LinkedList;
-
 public class Employee {
-    public String name;
-    public int idNumber;
-    public String role; //Cashier, manager
+    private int id;
+    private String name;
+    private String workingShift;
     private String phoneNumber;
-    public String shift;
-    private String email;
-    private String password; //morning, afternoon, night
+    private String role; //Can be cashier or the manager
+    private String password;
 
-
-    private static LinkedList<Employee> staffList = new LinkedList<Employee>();
-
-    //Constructor to add staff
-    public Employee(String name, int idNumber, String role,
-                    String phoneNumber, String shift, String email, String password) {
-                this.name = name;
-                this.idNumber = idNumber;
-                this.role = role;
-                this.phoneNumber = phoneNumber;
-                this.shift = shift;
-                this.email = email;
-                this.password = password;
-                }
-    
-    //Constructor to login
-    public Employee(String email, String password) {
-        this.email = email;
+    // Constructor
+    public Employee(int id, String name, String workingShift, String phoneNumber, String role, String password) {
+        this.id = id;
+        this.name = name;
+        this.workingShift = workingShift;
+        this.phoneNumber = phoneNumber;
+        this.role = role;
         this.password = password;
     }
 
-    void addItem()
-    {
-        System.out.println("Add item to menu here: ");
+    // Getters and Setters
+    public int getId() {
+        return id;
     }
 
-    public static LinkedList<Employee> getStaffList() {
-        return staffList;
+    public void setId(int id) {
+        this.id = id;
     }
-    
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getWorkingShift() {
+        return workingShift;
+    }
+
+    public void setWorkingShift(String workingShift) {
+        this.workingShift = workingShift;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
