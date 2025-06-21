@@ -3,7 +3,7 @@ public class Employee {
     private String name;
     private String workingShift;
     private String phoneNumber;
-    private String role; //Can be cashier or the manager
+    private String role;
     private String password;
 
     // Constructor
@@ -63,5 +63,19 @@ public class Employee {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    // Main
+    public static void main(String[] args) {
+        // Create an Employee object
+        Employee employee = new Employee(1, "Nary", "Morning & Afternoon", "012 345 678", "Cashier", "password123");
+
+        // Print employee details
+        System.out.println("Employee ID: " + employee.getId());
+        System.out.println("Name: " + employee.getName());
+        System.out.println("Working Shift: " + employee.getWorkingShift());
+        System.out.println("Phone Number: " + employee.getPhoneNumber());
+        System.out.println("Role: " + employee.getRole());
+        System.out.println("Password: " + employee.getPassword());
     }
 }
