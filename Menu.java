@@ -1,4 +1,4 @@
-public class Menu {
+public class Menu{
     private String category;
     private double promotionPercentage;
     private String status;
