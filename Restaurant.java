@@ -10,5 +10,6 @@ public class Restaurant {
         System.out.println("You are seated at Table " + tableNumber);
         System.out.println("Please choose from our menu below:\n");
 
+        
     }
     }
