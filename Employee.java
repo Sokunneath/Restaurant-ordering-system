@@ -3,7 +3,7 @@ public class Employee {
     private String name;
     private String workingShift;
     private String phoneNumber;
-    private String role; //Can be cashier or the manager
+    private String role;
     private String password;
 
     // Constructor
@@ -64,5 +64,4 @@ public class Employee {
     public void setPassword(String password) {
         this.password = password;
     }
-
 }
