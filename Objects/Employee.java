@@ -1,135 +1,173 @@
 package Objects;
-
-
 import java.util.ArrayList;
-
-// import authentication;
+import java.util.Objects; // Import Objects for hash() and equals() utility methods
 
 public class Employee {
+
+    // 1. Data Encapsulation: Fields are private to protect data integrity.
     private int employeeID;
     private String name;
-    private String role;
+    private String role; // e.g., "Cashier", "Manager", "Chef"
     private double salary;
     private String phoneNumber;
     private String email;
-    private String workingShift;
-    private String password;
-    private static int idcounter = 1; // Static counter to ensure unique IDs
-    public static ArrayList<Employee> employees = new ArrayList<>();
+    private String workingShift; // e.g., "Morning", "Afternoon", "Evening"
+    private String password;     // NOTE: In a real system, passwords should be hashed, not stored in plain text.
 
-    public Employee(int id, String name, String role, double salary, String phoneNumber, String email, String workingShift, String password) {
-        this.employeeID = idcounter++;
-        this.name = name;
-        this.role = role;
-        this.salary = salary;
-        this.phoneNumber = phoneNumber;
-        setEmail(email);
-        this.workingShift = workingShift;
-        setPassword(password);
+    // 2. Static Counter: A single counter shared by all Employee objects to ensure unique IDs.
+    private static int idCounter = 1;
+
+    // 3. Static List: A list to keep track of all created Employee objects.
+    public static final ArrayList<Employee> employees = new ArrayList<>(); // Use 'final' as the list reference shouldn't change.
+
+    public Employee(String name, String role, double salary, String phoneNumber, String email, String workingShift, String password) {
+        this.employeeID = idCounter++; // Assign unique ID and then increment counter.
+        setName(name);             // Use setter for validation
+        setRole(role);             // Use setter for validation
+        setSalary(salary);         // Use setter for validation
+        setPhoneNumber(phoneNumber); // Use setter for validation
+        setEmail(email);           // Use setter for validation
+        setWorkingShift(workingShift); // Use setter for validation
+        setPassword(password);     // Use setter for validation
+        employees.add(this);       // Add this new employee to the static list.
     }
-    public int getId() {
+
+    public Employee(String name, String email, String password) {
+        // Call the main constructor with default values for other fields.
+        this(name, "Unassigned", 0.0, "Unknown", email, "Morning", password);
+    }
+
+    // Removed the constructor public Employee(int id, String name, ...)
+    // as the ID should be automatically generated, not passed in manually.
+
+
+    // --- Getters and Setters with Validation (made public for broader access where appropriate) ---
+
+    public int getEmployeeID() {
         return employeeID;
     }
-    public void setId(int id) {
-        this.employeeID = id;
-    }
+    // No public setId() method, as the employeeID should be unique and immutable after creation.
+
     public String getName() {
         return name;
     }
     public void setName(String name) {
-        this.name = name;
+        if (name != null && !name.trim().isEmpty()) {
+            this.name = name.trim();
+        } else {
+            System.out.println("Error: Employee name cannot be null or empty. Name not set.");
+            // In a real application, you might throw an IllegalArgumentException.
+        }
     }
+
     public String getRole() {
         return role;
     }
     public void setRole(String role) {
-        this.role = role;
-    }
-    protected double getSalary() {
-        return salary;
-    }
-    protected void setSalary(double salary) {
-        if (salary < 100) {
-            System.out.println("Salary cannot be less than 50. Setting to default value of 0.");
-            this.salary = 100;
+        if (role != null && !role.trim().isEmpty()) {
+            this.role = role.trim();
         } else {
-            this.salary = salary;
-        }
-    }
-    protected String getPhoneNumber() {
-        return phoneNumber;
-    }
-    protected void setPhoneNumber(String phoneNumber) {
-        if (phoneNumber == null || phoneNumber.isEmpty()) {
-            System.out.println("Phone number cannot be null or empty. Setting to default value of 'Unknown'.");
-            this.phoneNumber = "Unknown";
-        } else {
-            this.phoneNumber = phoneNumber;
-        }
-    }
-    protected String getEmail() {
-        return email;
-    }
-    private void setEmail(String email) {
-        if (email == null || email.isEmpty()) {
-            System.out.println("Email cannot be null or empty. Setting to ");
-            this.email = "Unknown";
-        } else {
-            this.email = email;
+            System.out.println("Error: Employee role cannot be null or empty. Role not set.");
         }
     }
 
-    protected String getWorkingShift() {
+    public double getSalary() {
+        return salary;
+    }
+    public void setSalary(double salary) {
+        if (salary >= 0) { // Salary can be 0, but not negative
+            this.salary = salary;
+        } else {
+            System.out.println("Error: Salary cannot be negative. Salary not updated.");
+        }
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+    public void setPhoneNumber(String phoneNumber) {
+        if (phoneNumber != null && !phoneNumber.trim().isEmpty()) {
+            this.phoneNumber = phoneNumber.trim();
+        } else {
+            System.out.println("Error: Phone number cannot be null or empty. Setting to 'Unknown'.");
+            this.phoneNumber = "Unknown";
+        }
+    }
+
+    public String getEmail() {
+        return email;
+    }
+    public void setEmail(String email) { // Made public for external modification if needed
+        if (email != null && email.contains("@") && email.contains(".")) { // Basic email format validation
+            this.email = email.trim();
+        } else {
+            System.out.println("Error: Invalid email format or empty. Email not set.");
+            // You might default to "Unknown" if this is acceptable.
+        }
+    }
+
+    public String getWorkingShift() {
         return workingShift;
     }
-    protected void setWorkingShift(String workingShift) {
+    public void setWorkingShift(String workingShift) {
         if ("Morning".equalsIgnoreCase(workingShift) ||
             "Afternoon".equalsIgnoreCase(workingShift) ||
             "Evening".equalsIgnoreCase(workingShift)) {
             this.workingShift = workingShift;
         } else {
-            System.out.println("Invalid shift.");
+            System.out.println("Error: Invalid shift. Please choose 'Morning', 'Afternoon', or 'Evening'. Shift not set.");
         }
     }
 
-    private String setPassword(String password) {
-        if(password != null && !password.isEmpty()) {
-            this.password = password;
-            return "Password set successfully.";
+    // Password management: No getter for password for security reasons.
+    // The setter is for internal use within the class or by trusted methods.
+    private void setPassword(String password) { // Remains private
+        if (password != null && !password.trim().isEmpty()) {
+            // In a real application, you would hash the password here (e.g., using BCrypt).
+            this.password = password.trim();
         } else {
-            return "Invalid password.";
+            System.out.println("Error: Password cannot be null or empty. Password not set.");
         }
     }
 
- @Override
-    public String toString() {
-        return "Employee{" +
-                "name='" + name + '\'' +
-                ", employeeId=" + employeeID +
-                ", role='" + role + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", workingShift='" + workingShift + '\'' +
-                '}';
+
+    public boolean verifyPassword(String inputPassword) {
+        return this.password != null && this.password.equals(inputPassword);
     }
 
-    // Method for recording transactions (common utility method)
+
     public void recordTransaction(double amount) {
         if (amount > 0) {
-            System.out.println("General transaction recorded: $" + amount);
+            System.out.println("General transaction recorded by " + getName() + ": $" + String.format("%.2f", amount));
         } else {
-            System.out.println("Invalid transaction amount.");
+            System.out.println("Invalid transaction amount for " + getName() + ". Amount must be positive.");
         }
     }
+
+
+    public void performDuties() {
+        System.out.println(getName() + " is performing general employee duties.");
+    }
+
+
+    @Override
+    public String toString() {
+        return String.format("Employee ID: %d, Name: %s, Role: %s, Salary: $%.2f, Phone: %s, Email: %s, Shift: %s",
+                             employeeID, name, role, salary, phoneNumber, email, workingShift);
+    }
+
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof Employee)) return false;
-        Employee other = (Employee) obj;
-        return this.employeeID == other.employeeID &&
-               this.name.equals(other.name) &&
-               this.role.equals(other.role);
+        if (this == obj) return true; // Same object instance
+        if (obj == null || getClass() != obj.getClass()) return false; // Null or different class
+        Employee employee = (Employee) obj; // Cast to Employee
+        return employeeID == employee.employeeID; // Equality based on unique employee ID
     }
 
 
-    
+    @Override
+    public int hashCode() {
+        return Objects.hash(employeeID); // Use Objects.hash() for a robust hash code.
+    }
 }
