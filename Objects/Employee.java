@@ -1,12 +1,12 @@
 package Objects;
 
-import java.lang.reflect.Array;
+
 import java.util.ArrayList;
 
 // import authentication;
 
 public class Employee {
-    private int id;
+    private int employeeID;
     private String name;
     private String role;
     private double salary;
@@ -18,7 +18,7 @@ public class Employee {
     public static ArrayList<Employee> employees = new ArrayList<>();
 
     public Employee(int id, String name, String role, double salary, String phoneNumber, String email, String workingShift, String password) {
-        this.id = idcounter++;
+        this.employeeID = idcounter++;
         this.name = name;
         this.role = role;
         this.salary = salary;
@@ -28,10 +28,10 @@ public class Employee {
         setPassword(password);
     }
     public int getId() {
-        return id;
+        return employeeID;
     }
     public void setId(int id) {
-        this.id = id;
+        this.employeeID = id;
     }
     public String getName() {
         return name;
@@ -105,7 +105,7 @@ public class Employee {
     public String toString() {
         return "Employee{" +
                 "name='" + name + '\'' +
-                ", employeeId=" + employeeId +
+                ", employeeId=" + employeeID +
                 ", role='" + role + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", workingShift='" + workingShift + '\'' +
@@ -125,13 +125,11 @@ public class Employee {
     public boolean equals(Object obj) {
         if (!(obj instanceof Employee)) return false;
         Employee other = (Employee) obj;
-        return this.employeeId == other.employeeId &&
+        return this.employeeID == other.employeeID &&
                this.name.equals(other.name) &&
                this.role.equals(other.role);
     }
 
-    public static int getEmployeeCount() {
-        return employeeCount;
-    }
+
     
 }
