@@ -1,27 +1,34 @@
 package authenticationInterface;
+
 import java.util.Scanner;
+import Objects.Employee; // Import your Employee class
+import java.util.Optional; // Required for Optional in login (added for robustness)
 
+public interface authentication { // Corrected interface name to 'Authentication'
 
-import Objects.Employee;
-import Objects.Cashier;
+    public boolean login(String email, String password); // This method is NOT static
 
-public abstract class authentication {
-    public abstract boolean login();
-    public abstract void logout();
-    public static Employee register(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter username: ");
-        String username = scanner.nextLine();
-        Scanner scanner2 = new Scanner(System.in);
-        System.out.println("Enter Email: ");
-        String email = scanner2.nextLine();
-        Scanner scanner3 = new Scanner(System.in);
+    public static Employee signUp() { // This method IS static and handles input internally
+        Scanner sc = new Scanner(System.in);
+        System.out.println("\n--- Employee Sign Up ---");
+        System.out.print("Enter employee name: ");
+        String name = sc.nextLine();
+        System.out.print("Enter email: ");
+        String email = sc.nextLine();
         System.out.print("Enter password: ");
-        String password = scanner3.nextLine();
-        // This is a placeholder implementation
+        String password = sc.nextLine();
 
-        Employee newaccount = new Employee(username, email, password);
-        System.out.println("User registered successfully!");
-        return newaccount; // Assuming Employee has this constructor
-}
+        // Add email existence check for robustness
+        boolean emailExists = Employee.employees.stream()
+            .anyMatch(e -> e.getEmail().equalsIgnoreCase(email));
+
+        if (emailExists) {
+            System.out.println("Sign-up failed: An account with this email already exists.");
+            return null;
+        }
+
+        Employee newEmployee = new Employee(name, email, password);
+        System.out.println("Account created successfully for " + newEmployee.getName() + "."); // More specific message
+        return newEmployee;
+    }
 }
