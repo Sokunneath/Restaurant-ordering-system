@@ -31,7 +31,7 @@ public class Employee {
         setPassword(password);     // Use setter for validation
         employees.add(this);       // Add this new employee to the static list.
     }
-
+    
     public Employee(String name, String email, String password) {
         // Call the main constructor with default values for other fields.
         this(name, "Unassigned", 0.0, "Unknown", email, "Morning", password);
@@ -43,7 +43,7 @@ public class Employee {
 
     // --- Getters and Setters with Validation (made public for broader access where appropriate) ---
 
-    public int getEmployeeID() {
+    protected int getEmployeeID() {
         return employeeID;
     }
     // No public setId() method, as the employeeID should be unique and immutable after creation.
@@ -51,7 +51,7 @@ public class Employee {
     public String getName() {
         return name;
     }
-    public void setName(String name) {
+    protected void setName(String name) {
         if (name != null && !name.trim().isEmpty()) {
             this.name = name.trim();
         } else {
@@ -60,10 +60,10 @@ public class Employee {
         }
     }
 
-    public String getRole() {
+    protected String getRole() {
         return role;
     }
-    public void setRole(String role) {
+    protected void setRole(String role) {
         if (role != null && !role.trim().isEmpty()) {
             this.role = role.trim();
         } else {
@@ -71,10 +71,10 @@ public class Employee {
         }
     }
 
-    public double getSalary() {
+    protected double getSalary() {
         return salary;
     }
-    public void setSalary(double salary) {
+    protected void setSalary(double salary) {
         if (salary >= 0) { // Salary can be 0, but not negative
             this.salary = salary;
         } else {
@@ -82,10 +82,10 @@ public class Employee {
         }
     }
 
-    public String getPhoneNumber() {
+    protected String getPhoneNumber() {
         return phoneNumber;
     }
-    public void setPhoneNumber(String phoneNumber) {
+    protected void setPhoneNumber(String phoneNumber) {
         if (phoneNumber != null && !phoneNumber.trim().isEmpty()) {
             this.phoneNumber = phoneNumber.trim();
         } else {
@@ -97,7 +97,7 @@ public class Employee {
     public String getEmail() {
         return email;
     }
-    public void setEmail(String email) { // Made public for external modification if needed
+    protected void setEmail(String email) { // Made public for external modification if needed
         if (email != null && email.contains("@") && email.contains(".")) { // Basic email format validation
             this.email = email.trim();
         } else {
@@ -106,10 +106,10 @@ public class Employee {
         }
     }
 
-    public String getWorkingShift() {
+    protected String getWorkingShift() {
         return workingShift;
     }
-    public void setWorkingShift(String workingShift) {
+    protected void setWorkingShift(String workingShift) {
         if ("Morning".equalsIgnoreCase(workingShift) ||
             "Afternoon".equalsIgnoreCase(workingShift) ||
             "Evening".equalsIgnoreCase(workingShift)) {
@@ -131,12 +131,12 @@ public class Employee {
     }
 
 
-    public boolean verifyPassword(String inputPassword) {
+    protected boolean verifyPassword(String inputPassword) {
         return this.password != null && this.password.equals(inputPassword);
     }
 
 
-    public void recordTransaction(double amount) {
+    protected void recordTransaction(double amount) {
         if (amount > 0) {
             System.out.println("General transaction recorded by " + getName() + ": $" + String.format("%.2f", amount));
         } else {
@@ -145,7 +145,7 @@ public class Employee {
     }
 
 
-    public void performDuties() {
+    protected void performDuties() {
         System.out.println(getName() + " is performing general employee duties.");
     }
 
